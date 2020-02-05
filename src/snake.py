@@ -7,7 +7,7 @@ class Snake:
         self.screen = screen
 
         # Snake settings
-        self.body = [(200, 200), (180, 200), (160, 200), (140, 200), (120, 200)]
+        self.body = [(200, 200)]
         self.color = (255, 0, 0)
         self.surface = pygame.Surface((15, 15))
         self.surface.fill(self.color)
@@ -49,13 +49,13 @@ class Snake:
         else:
             return False
 
-    def collision_with_itself(self):
+    def collision_with_itself(self, game_over):
         """ Check if the snake has hit itself """
-        for pos in range(1, len(self.body) - 1):
+        for pos in range(1, len(self.body)):
             if self.body[0][0] == self.body[pos][0] and self.body[0][1] == self.body[pos][1]:
-                return True
-            else:
-                return False
+                print(f'head = ({self.body[0][0]}, {self.body[0][1]}) - body[{pos}]= ({self.body[pos][0]}, {self.body[pos][1]})')
+                game_over = True
+        return game_over
 
     def eat_fruit(self, fruit):
         """ Checks if there is a collision between the fruit and the snake """
