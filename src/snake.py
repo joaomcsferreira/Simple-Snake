@@ -53,7 +53,6 @@ class Snake:
         """ Check if the snake has hit itself """
         for pos in range(1, len(self.body)):
             if self.body[0][0] == self.body[pos][0] and self.body[0][1] == self.body[pos][1]:
-                print(f'head = ({self.body[0][0]}, {self.body[0][1]}) - body[{pos}]= ({self.body[pos][0]}, {self.body[pos][1]})')
                 game_over = True
         return game_over
 
