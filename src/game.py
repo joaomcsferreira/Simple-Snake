@@ -37,17 +37,17 @@ class Game:
                 # Direction controls
                 self.snake.user_move(event)
 
-            # Collision with a fruit
-            if self.snake.eat_fruit(self.fruit):
-                self.snake.grow_up(self.fruit)
-
             # Collision with itself
-            self.game_over = self.snake.collision_with_itself()
-            if self.game_over:
+            if self.snake.collision_with_itself(self.game_over):
+                self.game_over = True
                 quit()
 
             # Collision with boundaries
             self.game_over = self.snake.collision_with_boundaries()
+
+            # Collision with a fruit
+            if self.snake.eat_fruit(self.fruit):
+                self.snake.grow_up(self.fruit)
 
             self.snake.move()
 
