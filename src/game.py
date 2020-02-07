@@ -42,8 +42,11 @@ class Game:
                 self.snake.user_move(event)
 
             # Collision with itself
-            if self.snake.collision_with_itself(self.game_over):
+            if self.snake.collision_with_itself():
                 self.game_over = True
+                quit()
+
+            if self.snake.collision_with_bot(self.snake_bot) or self.snake.collision_with_bot(self.snake_bot_2):
                 quit()
 
             # Collision with boundaries
