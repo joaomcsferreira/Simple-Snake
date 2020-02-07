@@ -9,7 +9,7 @@ class Fruit:
 
         self.screen = screen
         self.surface = pygame.Surface((15, 15))
-        self.surface.fill((255, 255, 255))
+        self.surface.fill((255, 0, 0))
 
     def update(self):
         """ Updates the coordinates of the fruit """
