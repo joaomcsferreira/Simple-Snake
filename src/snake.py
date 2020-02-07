@@ -50,12 +50,16 @@ class Snake:
         else:
             return False
 
-    def collision_with_itself(self, game_over):
+    def collision_with_itself(self):
         """ Check if the snake has hit itself """
         for pos in range(1, len(self.body)):
             if self.body[0][0] == self.body[pos][0] and self.body[0][1] == self.body[pos][1]:
-                game_over = True
-        return game_over
+                return True
+
+    def collision_with_bot(self, bot):
+        for pos in bot.body:
+            if self.body[0][0] == pos[0] and self.body[0][1] == pos[1]:
+                return True
 
     def eat_fruit(self, fruit):
         """ Checks if there is a collision between the fruit and the snake """
