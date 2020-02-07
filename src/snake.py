@@ -1,4 +1,5 @@
 import pygame
+from random import choice
 
 
 class Snake:
@@ -8,7 +9,7 @@ class Snake:
 
         # Snake settings
         self.body = [(200, 200)]
-        self.color = (255, 0, 0)
+        self.color = (0, 200, 0)
         self.surface = pygame.Surface((15, 15))
         self.surface.fill(self.color)
 
@@ -72,3 +73,42 @@ class Snake:
         """ Draws each part of the snake's turn on the screen """
         for pos in self.body:
             self.screen.blit(self.surface, pos)
+
+
+class SnakeBot(Snake):
+    def __init__(self, screen):
+        super().__init__(screen)
+
+        # Snake settings
+        self.body = [(600, 200), (620, 200), (640, 200)]
+        self.color = (255, 255, 255)
+        self.surface.fill(self.color)
+
+        # Time constant
+        self.cont = 0
+
+        # Moviment settings
+        self.direction_choice = [0, 1, 2, 3]
+
+    def user_move(self, event=0):
+        self.cont = self.cont + 1
+
+        if self.cont == 10:
+            self.my_direction = choice(self.direction_choice)
+            self.cont = 0
+
+    def collision_with_boundaries(self):
+        if self.body[0][0] == 800:
+            self.body[0] = (0, self.body[0][1])
+        elif self.body[0][1] == 600:
+            self.body[0] = (self.body[0][0], 0)
+        elif self.body[0][0] < 0:
+            self.body[0] = (800, self.body[0][1])
+        elif self.body[0][1] < 0:
+            self.body[0] = (self.body[0][0], 600)
+
+    def collision_with_itself(self, game_over):
+        pass
+
+    def eat_fruit(self, fruit):
+        pass
