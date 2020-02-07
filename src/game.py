@@ -56,6 +56,10 @@ class Game:
             if self.snake.eat_fruit(self.fruit):
                 self.snake.grow_up(self.fruit)
 
+            if self.snake_bot.eat_fruit(self.fruit) or self.snake_bot_2.eat_fruit(self.fruit):
+                self.snake_bot.grow_up(self.fruit)
+                self.snake_bot_2.grow_up(self.fruit)
+
             self.snake.move()
 
             # Starting AI bot
