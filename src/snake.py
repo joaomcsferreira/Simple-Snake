@@ -87,8 +87,9 @@ class SnakeBot(Snake):
         # Time constant
         self.cont = 0
 
-        # Moviment settings
-        self.direction_choice = [0, 1, 2, 3]
+        # Movement settings
+        self.my_direction = self.LEFT
+        self.direction_choice = [self.UP, self.DOWN, self.LEFT, self.RIGHT]
 
     def user_move(self, event=0):
         self.cont = self.cont + 1
@@ -107,8 +108,7 @@ class SnakeBot(Snake):
         elif self.body[0][1] < 0:
             self.body[0] = (self.body[0][0], 600)
 
-    def collision_with_itself(self, game_over):
-        pass
-
-    def eat_fruit(self, fruit):
-        pass
+    def initialize(self):
+        self.move()
+        self.user_move()
+        self.collision_with_boundaries()
