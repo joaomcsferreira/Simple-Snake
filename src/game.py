@@ -1,5 +1,5 @@
 import pygame
-from snake import Snake
+from snake import *
 from fruit import Fruit
 
 
@@ -16,6 +16,9 @@ class Game:
 
         # Snake settings
         self.snake = Snake(self.screen)
+
+        # Snake bot settings
+        self.snake_bot = SnakeBot(self.screen)
 
         # Fruits settings
         self.fruit = Fruit(self.screen)
@@ -37,6 +40,9 @@ class Game:
                 # Direction controls
                 self.snake.user_move(event)
 
+            # Direction control bot
+            self.snake_bot.user_move()
+
             # Collision with itself
             if self.snake.collision_with_itself(self.game_over):
                 self.game_over = True
@@ -44,16 +50,19 @@ class Game:
 
             # Collision with boundaries
             self.game_over = self.snake.collision_with_boundaries()
+            self.snake_bot.collision_with_boundaries()
 
             # Collision with a fruit
             if self.snake.eat_fruit(self.fruit):
                 self.snake.grow_up(self.fruit)
 
             self.snake.move()
+            self.snake_bot.move()
 
             self.screen.fill((0, 0, 0))
             self.fruit.render()
             self.snake.render()
+            self.snake_bot.render()
             pygame.display.update()
 
         if self.game_over:
