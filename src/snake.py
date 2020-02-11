@@ -80,6 +80,7 @@ class Snake:
 
 
 class SnakeBot(Snake):
+    """ Just a bot snake """
     def __init__(self, screen):
         super().__init__(screen)
 
@@ -96,6 +97,7 @@ class SnakeBot(Snake):
         self.direction_choice = [self.UP, self.DOWN, self.LEFT, self.RIGHT]
 
     def user_move(self, event=0):
+        """ function to update the direction of the bot """
         self.cont = self.cont + 1
 
         if self.cont == 10:
@@ -103,6 +105,7 @@ class SnakeBot(Snake):
             self.cont = 0
 
     def collision_with_boundaries(self):
+        """ Check if snake collided with boundaries """
         if self.body[0][0] == 800:
             self.body[0] = (0, self.body[0][1])
         elif self.body[0][1] == 600:
@@ -113,6 +116,7 @@ class SnakeBot(Snake):
             self.body[0] = (self.body[0][0], 600)
 
     def initialize(self):
+        """ Starting all bot functions"""
         self.move()
         self.user_move()
         self.collision_with_boundaries()
