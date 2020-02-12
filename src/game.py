@@ -50,12 +50,13 @@ class Game:
 
     def button_config(self, size, msg, x, y, w, h, rect, color=(169, 169, 169)):
         """Renderiza as msg"""
-        if rect:
-            pygame.draw.rect(self.screen, color, [x, y, w, h])
-
         txt = pygame.font.Font('../ttf/PressStart2P-Regular.ttf', size)
 
-        txt_surf = txt.render(msg, True, (0, 0, 0))
+        if rect:
+            pygame.draw.rect(self.screen, color, [x, y, w, h])
+            txt_surf = txt.render(msg, True, (0, 0, 0))
+        else:
+            txt_surf = txt.render(msg, True, (255, 255, 255))
         txt_rect = txt_surf.get_rect()
         txt_rect.center = ((x + int(w / 2)), (y + int(h / 2)))
 
@@ -162,7 +163,8 @@ class GameMain(Game):
             self.snake_bot_2.grow_up(self.fruit)
 
         if self.game_over:
-            new_screen = GameOver()
+            print(self.snake.points)
+            new_screen = GameOver(self.snake.points)
             new_screen.run_game()
 
     def render_everything(self):
@@ -175,8 +177,13 @@ class GameMain(Game):
 
 
 class GameOver(Game):
-    def __init__(self):
+    def __init__(self, points):
         super().__init__()
+
+        self.points = points
+        self.background = pygame.image.load('../images/game_end.jpg')
+        self.sound = pygame.mixer.music.load('../sounds/game_end.mp3')
+        pygame.mixer.music.play()
 
     def run_game(self):
         while not self.game_over:
@@ -188,9 +195,16 @@ class GameOver(Game):
 
             self.render_everything()
 
-            self.button(20, 'Play Again?', 274, 380, 250, 50, True, 'run_game')
+            self.button(20, 'Play Again?', 274, 400, 250, 50, True, 'run_game')
+            self.button(12, 'Exit', 650, 450, 100, 30, True, 'exit')
+            self.button_config(20, 'Points', 50, 370, 100, 50, False)
+            self.button_config(40, str(self.points), 50, 400, 100, 100, False)
 
             pygame.display.update()
+
+    def render_everything(self):
+        """ Function that brings together all renderings """
+        self.screen.blit(self.background, (0, 0))
 
 
 if __name__ == '__main__':
