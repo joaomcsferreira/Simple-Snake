@@ -6,6 +6,7 @@ class Snake:
     def __init__(self, screen):
         """ A simple idea of a snake """
         self.screen = screen
+        self.points = 0
 
         # Snake settings
         self.body = [(200, 200)]
@@ -45,7 +46,7 @@ class Snake:
 
     def collision_with_boundaries(self):
         """ Check if snake collided with boundaries """
-        if self.body[0][0] == 800 or self.body[0][1] == 600 or self.body[0][0] < 0 or self.body[0][1] < 0:
+        if self.body[0][0] == 800 or self.body[0][1] == 500 or self.body[0][0] < 0 or self.body[0][1] < 0:
             return True
         else:
             return False
@@ -71,6 +72,7 @@ class Snake:
     def grow_up(self, fruit):
         """ Responsible for the snake's growth """
         self.body.append((self.body[-1][0], self.body[-1][1]))
+        self.points += 10
         fruit.update()
 
     def render(self):
@@ -108,12 +110,17 @@ class SnakeBot(Snake):
         """ Check if snake collided with boundaries """
         if self.body[0][0] == 800:
             self.body[0] = (0, self.body[0][1])
-        elif self.body[0][1] == 600:
+        elif self.body[0][1] == 500:
             self.body[0] = (self.body[0][0], 0)
         elif self.body[0][0] < 0:
             self.body[0] = (800, self.body[0][1])
         elif self.body[0][1] < 0:
-            self.body[0] = (self.body[0][0], 600)
+            self.body[0] = (self.body[0][0], 500)
+
+    def grow_up(self, fruit):
+        """ Responsible for the snake's growth """
+        self.body.append((self.body[-1][0], self.body[-1][1]))
+        fruit.update()
 
     def initialize(self):
         """ Starting all bot functions"""
