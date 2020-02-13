@@ -158,9 +158,15 @@ class GameMain(Game):
         if self.snake.eat_fruit(self.fruit):
             self.snake.grow_up(self.fruit)
 
+        # Collision bots with a fruit
         if self.snake_bot.eat_fruit(self.fruit) or self.snake_bot_2.eat_fruit(self.fruit):
             self.snake_bot.grow_up(self.fruit)
             self.snake_bot_2.grow_up(self.fruit)
+
+        if self.snake.growing_up % 5 == 0:
+            self.snake_bot.grow_up(self.fruit)
+            self.snake_bot_2.grow_up(self.fruit)
+            self.snake.growing_up = 1
 
         if self.game_over:
             print(self.snake.points)
