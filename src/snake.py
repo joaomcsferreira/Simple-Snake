@@ -6,6 +6,8 @@ class Snake:
     def __init__(self, screen):
         """ A simple idea of a snake """
         self.screen = screen
+
+        self.growing_up = 1
         self.points = 0
 
         # Snake settings
@@ -73,6 +75,7 @@ class Snake:
         """ Responsible for the snake's growth """
         self.body.append((self.body[-1][0], self.body[-1][1]))
         self.points += 10
+        self.growing_up += 1
         fruit.update()
 
     def render(self):
